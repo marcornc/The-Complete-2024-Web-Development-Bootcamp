@@ -1,39 +1,27 @@
-const numberOfButtons = document.querySelectorAll(".drum").length
-
 function makeSound(drumType){
-    switch (drumType) {
-        case "w":
-                new Audio("sounds/crash.mp3").play()
-            break;
-        case "a":
-                new Audio("sounds/kick-bass.mp3").play()
-            break;
-        case "s":
-                new Audio("sounds/snare.mp3").play()
-            break;
-        case "d":
-                new Audio("sounds/tom-1.mp3").play()
-            break;
-        case "j":
-                new Audio("sounds/tom-2.mp3").play()
-            break;
-        case "k":
-                new Audio("sounds/tom-3.mp3").play()
-            break;
-        case "l":
-                new Audio("sounds/tom-4.mp3").play()
-            break;
-        default: allert("No Drum Found!!")
-            break;
+    const soundMap = {
+        "w" : "sounds/crash.mp3",
+        "a" : "sounds/kick-bass.mp3",
+        "s" : "sounds/snare.mp3",
+        "d" : "sounds/tom-1.mp3",
+        "j" : "sounds/tom-2.mp3",
+        "k" : "sounds/tom-3.mp3",
+        "l" : "sounds/tom-4.mp3",
     }
+
+    const soundFile = soundMap[drumType]
+
+    if (soundFile){
+        new Audio (soundFile).play()
+    } else alert("No Drum Found!")
+
 }
 
-for (var i=0; i<numberOfButtons; i++){
-    document.querySelectorAll(".drum")[i].addEventListener("click", function(){
-        const drumType = this.innerText
-        makeSound(drumType)
+document.querySelectorAll(".drum").forEach((button)=>{
+    button.addEventListener("click", (event)=>{
+        makeSound(event.target.innerText)
     })
-}
+})
 
 document.addEventListener("keydown", function(e){
     makeSound(e.key)
