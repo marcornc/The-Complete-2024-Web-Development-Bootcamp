@@ -1,4 +1,4 @@
-function makeSound(drumType){
+function makeSound(key){
     const soundMap = {
         "w" : "sounds/crash.mp3",
         "a" : "sounds/kick-bass.mp3",
@@ -9,7 +9,7 @@ function makeSound(drumType){
         "l" : "sounds/tom-4.mp3",
     }
 
-    const soundFile = soundMap[drumType]
+    const soundFile = soundMap[key]
 
     if (soundFile){
         new Audio (soundFile).play()
@@ -17,12 +17,22 @@ function makeSound(drumType){
 
 }
 
+function buttonAnimation(key){
+    let buttonSelected = document.querySelector(`.${key}`)
+    buttonSelected.classList.add("pressed")
+    setTimeout(function(){
+        buttonSelected.classList.remove("pressed")
+    }, 90)
+}
+
 document.querySelectorAll(".drum").forEach((button)=>{
-    button.addEventListener("click", (event)=>{
-        makeSound(event.target.innerText)
+    button.addEventListener("click", (e)=>{
+        makeSound(e.target.innerText)
+        buttonAnimation(e.target.innerText)
     })
 })
 
 document.addEventListener("keydown", function(e){
     makeSound(e.key)
+    buttonAnimation(e.key)
 })
